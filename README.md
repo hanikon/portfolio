@@ -1,0 +1,42 @@
+# Aday Tumarbayev
+
+Full-stack developer — Astana, Kazakhstan.
+
+I build and run web products end to end: backend, frontend, deployment and testing.
+Two years as the sole developer of an internal platform at an engineering company,
+plus freelance client work.
+
+## Stack
+
+| | |
+|---|---|
+| Languages | Go, Python, PHP, JavaScript, Dart |
+| Backend | REST APIs, background job queues, SQL and NoSQL |
+| Frontend & mobile | HTML, CSS, JavaScript, Flutter |
+| Bots & integrations | Telegram Bot API, WhatsApp Business API (Meta Cloud API) |
+| AI | LLM API integration |
+| Quality | Manual testing, automated test suites |
+
+## Selected work
+
+**Corporate standards management platform** — sole developer
+An internal web platform for an engineering company: publication feed with drafts,
+project registry, analytics, request pipeline, user management, notifications,
+full change history, standards catalogue and PDF export. I own the whole cycle —
+requirements, architecture, backend, frontend, deployment and support.
+
+**Loyalty and CRM platform** — freelance contributor
+A platform used by 1000+ businesses and 3M+ end users. Web application work,
+plus bringing the existing frontend into a Flutter mobile client on the
+established backend, and work on its WhatsApp integration over the official
+Meta Cloud API.
+
+**Telegram bots and landing pages** — freelance
+Bots that connect to existing services: site administration, notification
+delivery and routine business workflows. Landing pages delivered from design
+through to live deployment.
+
+## Contact
+
+- Email: tumarbaev666@gmail.com
+- Location: Astana, Kazakhstan
