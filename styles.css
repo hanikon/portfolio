@@ -77,6 +77,35 @@ ul,ol{margin:0;padding:0}
 .btn--ghost:hover{background:var(--card-hi);border-color:var(--accent);box-shadow:none}
 .btn--sm{padding:9px 16px;font-size:14px;box-shadow:none}
 
+/* glowing pill button with live dot */
+@property --glow-a{syntax:"<angle>";initial-value:0deg;inherits:false}
+.btn--glow,.btn--glow:hover{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  border-radius:999px;border:1.5px solid transparent;color:#fff;
+  background:
+    linear-gradient(180deg,#1a2233,#0e131e) padding-box,
+    conic-gradient(from var(--glow-a),
+      rgba(255,255,255,.10) 0deg,rgba(255,255,255,.95) 50deg,rgba(126,160,255,.9) 85deg,
+      rgba(255,255,255,.10) 140deg,rgba(255,255,255,.10) 360deg) border-box;
+  box-shadow:0 14px 28px -14px rgba(255,255,255,.55),0 0 26px -6px rgba(77,124,255,.45),inset 0 1px 0 rgba(255,255,255,.07);
+  animation:glow-spin 3.2s linear infinite;
+}
+.btn--glow:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 32px -14px rgba(255,255,255,.7),0 0 34px -4px rgba(77,124,255,.6),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn--glow.btn--sm{padding:9px 18px}
+@keyframes glow-spin{to{--glow-a:360deg}}
+.live{
+  flex:none;width:9px;height:9px;border-radius:50%;background:#34c759;
+  box-shadow:0 0 8px 1px rgba(52,199,89,.9);animation:live 2s ease-out infinite;
+}
+@keyframes live{
+  0%{box-shadow:0 0 0 0 rgba(52,199,89,.55),0 0 8px 1px rgba(52,199,89,.9)}
+  70%{box-shadow:0 0 0 9px rgba(52,199,89,0),0 0 8px 1px rgba(52,199,89,.9)}
+  100%{box-shadow:0 0 0 0 rgba(52,199,89,0),0 0 8px 1px rgba(52,199,89,.9)}
+}
+
 /* hero */
 .hero{
   padding:96px 0 72px;
@@ -230,4 +259,5 @@ ul,ol{margin:0;padding:0}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none !important}
+  .btn--glow,.live{animation:none}
 }
