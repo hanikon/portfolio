@@ -175,7 +175,7 @@ main,header,footer{position:relative;z-index:1}
 .ba__h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px}
 .ba__h b{font-size:clamp(22px,2.6vw,32px);letter-spacing:-.02em}
 .ba__h span{font-size:13px;color:var(--soft)}
-.ba__list{display:grid;gap:10px;max-width:46%}
+.ba__list{display:grid;gap:10px}
 .ba__pane--after .ba__list{margin-left:auto}
 .ba__row{display:flex;justify-content:space-between;gap:14px;padding:13px 16px;border-radius:14px;font-size:15.5px}
 .ba__pane--before .ba__row{background:rgba(241,70,53,.08);border:1px solid rgba(241,70,53,.25)}
@@ -183,11 +183,13 @@ main,header,footer{position:relative;z-index:1}
 .ba__row i{font-style:normal;font-weight:700;white-space:nowrap}
 .ba__pane--before .ba__row i{color:#ff8a7e}
 .ba__pane--after .ba__row i{color:#7be39b}
-.ba__total{margin-top:16px;font-size:20px;font-weight:800;letter-spacing:-.01em;max-width:46%}
+.ba__total{margin-top:16px;font-size:20px;font-weight:800;letter-spacing:-.01em}
 .ba__pane--after .ba__total{margin-left:auto}
 .ba__pane--after .ba__total{text-align:right}
 .ba__handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none;box-shadow:0 0 18px rgba(255,255,255,.6)}
 .ba__handle::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font-size:20px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.ba__label{position:absolute;top:22px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:999px;background:#fff;color:#111;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.ba.is-manual .ba__handle::after{background:var(--blue);color:#fff}
 .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 .ba__note{margin-top:12px;font-size:13px;color:var(--soft)}
 
@@ -329,10 +331,7 @@ main,header,footer{position:relative;z-index:1}
   .sec{padding:84px 0}
 }
 @media (max-width:640px){
-  .ba__pane--after{position:relative;clip-path:none;border-top:1px solid var(--line-2)}
-  .ba__handle,.ba input,.ba__hint{display:none}
-  .ba__pane{min-height:0}
-  .ba__pane--after .ba__h{flex-direction:row-reverse}
+  .ba__pane{min-height:560px}
 }
 @media (max-width:520px){
   .nav__name{display:none}
@@ -429,7 +428,7 @@ main,header,footer{position:relative;z-index:1}
     <div class="wrap">
       <span class="eyebrow rv">Было / стало</span>
       <h2 class="h2 wr">Один день вашего бизнеса</h2>
-      <p class="lead rv ba__hint">Потяните ползунок и сравните.</p>
+      <p class="lead rv">Смотрите, как меняется день. Можно потянуть ползунок самому.</p>
       <div class="ba rv" id="ba">
         <div class="ba__pane ba__pane--before">
           <div class="ba__h"><b>Было — вручную</b><span>часов в день</span></div>
@@ -453,7 +452,7 @@ main,header,footer{position:relative;z-index:1}
           </div>
           <div class="ba__total" style="color:#7be39b">≈ 30 минут на контроль</div>
         </div>
-        <div class="ba__handle" aria-hidden="true"></div>
+        <div class="ba__handle" aria-hidden="true"><span class="ba__label" id="baLabel">Было</span></div>
         <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Сравнить было и стало">
       </div>
       <p class="ba__note">Пример типичного дня небольшой компании. Реальная экономия зависит от ваших процессов — оценю на созвоне.</p>
@@ -721,26 +720,43 @@ main,header,footer{position:relative;z-index:1}
     })(h);
   });
 
-  /* before / after slider */
+  /* before / after slider: plays by itself, any touch takes over */
   var ba = document.getElementById('ba'), baR = document.getElementById('baRange');
-  function setPos(v) { ba.style.setProperty('--pos', v + '%'); }
-  baR.addEventListener('input', function () { setPos(baR.value); });
-  setPos(50);
-  var baShown = false;
-  new IntersectionObserver(function (es, o) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting || baShown || reduce) return;
-      baShown = true; o.disconnect();
-      var t0 = null;
-      (function anim(t) {
-        if (!t0) t0 = t;
-        var p = Math.min(1, (t - t0) / 1800);
-        var v = 50 + Math.sin(p * Math.PI * 2) * 22 * (1 - p);
-        setPos(v); baR.value = v;
-        if (p < 1) requestAnimationFrame(anim);
-      })(performance.now());
-    });
-  }, { threshold: 0.5 }).observe(ba);
+  var baLabel = document.getElementById('baLabel');
+  var pos = 100, auto = true, inView = false, idleT = null, raf = null;
+  function setPos(v) {
+    pos = v;
+    ba.style.setProperty('--pos', v + '%');
+    baR.value = v;
+    if (baLabel) baLabel.textContent = v > 50 ? 'Было' : 'Стало';
+  }
+  // timeline: hold "было" -> wipe -> hold "стало" -> wipe back
+  var HOLD = 2600, WIPE = 1500, CYCLE = 2 * (HOLD + WIPE), tStart = null;
+  function ease(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function frame(t) {
+    if (!auto || !inView) { raf = null; return; }
+    if (tStart === null) tStart = t - (pos <= 50 ? HOLD + WIPE : 0);
+    var c = (t - tStart) % CYCLE, v;
+    if (c < HOLD) v = 100;
+    else if (c < HOLD + WIPE) v = 100 - 100 * ease((c - HOLD) / WIPE);
+    else if (c < 2 * HOLD + WIPE) v = 0;
+    else v = 100 * ease((c - 2 * HOLD - WIPE) / WIPE);
+    setPos(v);
+    raf = requestAnimationFrame(frame);
+  }
+  function play() { if (!raf && auto && inView && !reduce) { tStart = null; raf = requestAnimationFrame(frame); } }
+  function takeOver() {
+    auto = false; ba.classList.add('is-manual');
+    clearTimeout(idleT);
+    // resume on its own after the visitor leaves it alone
+    idleT = setTimeout(function () { auto = true; ba.classList.remove('is-manual'); play(); }, 7000);
+  }
+  baR.addEventListener('input', function () { takeOver(); setPos(+baR.value); });
+  ba.addEventListener('pointerdown', takeOver);
+  setPos(reduce ? 50 : 100);
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) { inView = e.isIntersecting; if (inView) play(); });
+  }, { threshold: 0.35 }).observe(ba);
 
   /* magnetic buttons */
   if (!reduce && !small) {
