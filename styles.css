@@ -207,6 +207,22 @@ ul,ol{margin:0;padding:0}
 .quote figcaption b{display:block;font-size:15px}
 .quote figcaption span{font-size:13.5px;color:var(--ink-soft)}
 
+/* faq */
+.faq{display:grid;gap:12px;max-width:860px}
+.faq__item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .2s ease}
+.faq__item[open]{border-color:var(--line-hi)}
+.faq__item summary{
+  list-style:none;cursor:pointer;padding:20px 56px 20px 22px;position:relative;
+  font-weight:600;font-size:17px;color:var(--ink);
+}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__item summary::after{
+  content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  font-size:24px;font-weight:400;color:var(--accent-soft);transition:transform .2s ease;
+}
+.faq__item[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq__item p{margin:0;padding:0 22px 20px;color:var(--ink-soft);font-size:16px}
+
 /* process */
 .steps{list-style:none;counter-reset:s;display:grid;gap:14px;max-width:80ch}
 .steps li{
