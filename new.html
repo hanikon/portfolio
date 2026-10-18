@@ -244,10 +244,9 @@ main,header,footer{position:relative;z-index:1}
 .kin__row{display:block}
 
 .marquee{border-block:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--bg-2)}
-.marquee__track{display:flex;gap:46px;width:max-content;animation:mq 34s linear infinite}
+.marquee__track{display:flex;gap:46px;width:max-content;will-change:transform;transform:translate3d(0,0,0)}
 .marquee span{font-size:22px;font-weight:700;color:var(--soft);white-space:nowrap;letter-spacing:-.01em}
 .marquee span b{color:var(--blue-2);margin-right:46px;font-weight:700}
-@keyframes mq{to{transform:translateX(-50%)}}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:56px}
 .stat{background:var(--bg);padding:34px 26px}
@@ -348,7 +347,7 @@ main,header,footer{position:relative;z-index:1}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .glow,.live,.note,.note__tag,.bell,.marquee__track{animation:none !important}
+  .glow,.live,.note,.note__tag,.bell{animation:none !important}
   .wr .w{opacity:1;transform:none;filter:none}
   .rv{opacity:1;transform:none;transition:none}
 }
@@ -908,6 +907,30 @@ main,header,footer{position:relative;z-index:1}
     }, { passive: true });
     onScroll();
   }
+
+  /* ---------- skills marquee: driven by JS so it runs in every mobile browser ---------- */
+  (function () {
+    var track = document.querySelector('.marquee__track');
+    if (!track) return;
+    var first = track.firstElementChild, x = 0, last = null, visible = true, loopW = 0;
+    function measure() { loopW = first.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 46); }
+    measure();
+    window.addEventListener('resize', measure);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(track);
+    }
+    function step(t) {
+      if (last === null) last = t;
+      var dt = Math.min(64, t - last); last = t;
+      if (visible && loopW > 0) {
+        x -= dt * 0.045;            // ~45 px per second
+        if (-x >= loopW) x += loopW;
+        track.style.transform = 'translate3d(' + x + 'px,0,0)';
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
 
   /* ---------- tilt cards ---------- */
   if (!reduce && !small) {
