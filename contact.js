@@ -11,7 +11,7 @@
       'Интересует: цифровизация данных / аналитика и сроки / ИИ по АГСК / контроль на объекте\n' +
       'Коротко о задаче: '
   };
-  var SUBJECT = 'Проект с сайта tumarbaev.vercel.app';
+  var SUBJECT = 'Проект с сайта tumarbayev.vercel.app';
 
   var key = document.body.getAttribute('data-contact') || 'main';
   var text = MESSAGES[key] || MESSAGES.main;
