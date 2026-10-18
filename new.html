@@ -399,7 +399,7 @@ main,header,footer{position:relative;z-index:1}
     <div class="board" id="board">
       <div class="col" data-k="bot"><div class="col__h"><i></i>Клиентам ответили</div><div class="col__n" data-n>0</div><div class="col__s">бот, 24/7</div></div>
       <div class="col" data-k="crm"><div class="col__h"><i></i>Задачи в CRM</div><div class="col__n" data-n>0</div><div class="col__s">с напоминаниями</div></div>
-      <div class="col" data-k="pay"><div class="col__h"><i></i>Счета и оплаты</div><div class="col__n" data-n>0</div><div class="col__s">Kaspi.kz сверено</div></div>
+      <div class="col" data-k="pay"><div class="col__h"><i></i>Оплаты Kaspi</div><div class="col__n" data-n>0</div><div class="col__s">по QR и ссылке</div></div>
       <div class="col" data-k="rep"><div class="col__h"><i></i>Отчёты</div><div class="col__n" data-n>0</div><div class="col__s">собраны сами</div></div>
     </div>
     <button class="replay" id="replay" type="button">Посмотреть ещё раз</button>
@@ -435,7 +435,7 @@ main,header,footer{position:relative;z-index:1}
           <div class="ba__list">
             <div class="ba__row">Ответы на одни и те же вопросы в WhatsApp<i>~2 ч</i></div>
             <div class="ba__row">Отчёт для руководителя в Excel<i>~1,5 ч</i></div>
-            <div class="ba__row">Сверка оплат и выставление счетов<i>~1 ч</i></div>
+            <div class="ba__row">Приём оплат вручную, очереди на кассе<i>~1 ч</i></div>
             <div class="ba__row">Перенос заявок из чатов в таблицу<i>~1 ч</i></div>
             <div class="ba__row">Напоминания о сроках и платежах<i>~0,5 ч</i></div>
           </div>
@@ -446,7 +446,7 @@ main,header,footer{position:relative;z-index:1}
           <div class="ba__list">
             <div class="ba__row">Бот отвечает клиентам 24/7<i>0 ч</i></div>
             <div class="ba__row">Отчёт собирается автоматически<i>0 ч</i></div>
-            <div class="ba__row">Kaspi.kz сверяет оплаты, счёт уходит сам<i>0 ч</i></div>
+            <div class="ba__row">Клиент платит сам: QR Kaspi на сайте или ссылка в приложение<i>0 ч</i></div>
             <div class="ba__row">Заявки сразу попадают в CRM<i>0 ч</i></div>
             <div class="ba__row">Система сама напоминает о сроках<i>0 ч</i></div>
           </div>
@@ -501,7 +501,7 @@ main,header,footer{position:relative;z-index:1}
         <article class="p g3 rv rv-d1" data-tilt>
           <div class="p__big">24/7</div>
           <h3>Чат-боты WhatsApp и Telegram</h3>
-          <p>Принимают заявки ночью, отвечают на типовые вопросы, принимают оплату Kaspi.kz, ведут каналы.</p>
+          <p>Принимают заявки ночью, отвечают на типовые вопросы, отправляют ссылку на оплату Kaspi, ведут каналы.</p>
           <div class="p__tags"><span>1500+ обращений в сутки</span><span>Meta Cloud API</span></div>
         </article>
         <article class="p p--third g4 rv" data-tilt>
@@ -582,9 +582,9 @@ main,header,footer{position:relative;z-index:1}
     ['WA', 'WhatsApp', 'Срочно', 'Клиент ждёт ответа уже 2 часа', 'Бот ответил за 5 секунд', 'bot'],
     ['XLS', 'Excel', 'Не сходится', 'Отчёт за месяц не сходится', 'Отчёт собран автоматически', 'rep'],
     ['📅', 'Проект', 'Горит', 'Сдача проекта завтра — не готово', 'Напомнили за 3 дня, всё в срок', 'crm'],
-    ['@', 'Почта', 'Нет счёта', 'Клиент третий раз просит счёт', 'Счёт выставлен и отправлен сам', 'pay'],
+    ['@', 'Почта', 'Нет ссылки', 'Клиент третий раз просит, куда оплатить', 'Бот отправил ссылку на оплату Kaspi', 'pay'],
     ['₸', 'Бухгалтерия', 'Сегодня', 'Налог не оплачен — срок сегодня', 'Напоминание бухгалтеру за неделю', 'crm'],
-    ['K', 'Kaspi.kz', 'Проверить', '«Я перевёл, проверьте оплату»', 'Оплата Kaspi подтверждена', 'pay'],
+    ['K', 'Касса', 'Очередь', 'Очередь на кассе — клиенты уходят', 'QR Kaspi на сайте — оплата без очереди', 'pay'],
     ['TG', 'Telegram', 'Потеряно', 'Заявка потерялась в чате', 'Заявка сразу в CRM', 'crm'],
     ['☎', 'Звонок', 'Пропущено', 'Менеджер не перезвонил клиенту', 'Задача менеджеру с дедлайном', 'crm'],
     ['📦', 'Склад', 'Ошибка', 'Остатки в Excel не совпадают', 'Остатки синхронизированы', 'rep'],
@@ -602,7 +602,7 @@ main,header,footer{position:relative;z-index:1}
   var unread = document.getElementById('unread');
   var unreadTxt = document.getElementById('unreadTxt');
   var SUB_CHAOS = sub.textContent;
-  var SUB_ORDER = 'Бот отвечает клиентам, счета и оплаты Kaspi сверяются сами, задачи и сроки — в CRM, отчёты собираются автоматически.';
+  var SUB_ORDER = 'Бот отвечает клиентам, оплата через Kaspi по QR или ссылке прямо в приложении, задачи и сроки — в CRM, отчёты собираются автоматически.';
   var wide = function () { return window.matchMedia('(min-width: 1101px)').matches; };
   var cards = [], timers = [], phase = 'idle';
 
@@ -720,10 +720,11 @@ main,header,footer{position:relative;z-index:1}
     })(h);
   });
 
+  (function () {
   /* before / after slider: plays by itself, any touch takes over */
   var ba = document.getElementById('ba'), baR = document.getElementById('baRange');
   var baLabel = document.getElementById('baLabel');
-  var pos = 100, auto = true, inView = false, idleT = null, raf = null;
+  var pos = 100, baAuto = true, inView = false, idleT = null, raf = null;
   function setPos(v) {
     pos = v;
     ba.style.setProperty('--pos', v + '%');
@@ -734,7 +735,7 @@ main,header,footer{position:relative;z-index:1}
   var HOLD = 2600, WIPE = 1500, CYCLE = 2 * (HOLD + WIPE), tStart = null;
   function ease(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
   function frame(t) {
-    if (!auto || !inView) { raf = null; return; }
+    if (!baAuto || !inView) { raf = null; return; }
     if (tStart === null) tStart = t - (pos <= 50 ? HOLD + WIPE : 0);
     var c = (t - tStart) % CYCLE, v;
     if (c < HOLD) v = 100;
@@ -744,19 +745,20 @@ main,header,footer{position:relative;z-index:1}
     setPos(v);
     raf = requestAnimationFrame(frame);
   }
-  function play() { if (!raf && auto && inView && !reduce) { tStart = null; raf = requestAnimationFrame(frame); } }
+  function baPlay() { if (!raf && baAuto && inView && !reduce) { tStart = null; raf = requestAnimationFrame(frame); } }
   function takeOver() {
-    auto = false; ba.classList.add('is-manual');
+    baAuto = false; ba.classList.add('is-manual');
     clearTimeout(idleT);
     // resume on its own after the visitor leaves it alone
-    idleT = setTimeout(function () { auto = true; ba.classList.remove('is-manual'); play(); }, 7000);
+    idleT = setTimeout(function () { baAuto = true; ba.classList.remove('is-manual'); baPlay(); }, 7000);
   }
   baR.addEventListener('input', function () { takeOver(); setPos(+baR.value); });
   ba.addEventListener('pointerdown', takeOver);
   setPos(reduce ? 50 : 100);
   new IntersectionObserver(function (es) {
-    es.forEach(function (e) { inView = e.isIntersecting; if (inView) play(); });
+    es.forEach(function (e) { inView = e.isIntersecting; if (inView) baPlay(); });
   }, { threshold: 0.35 }).observe(ba);
+  })();
 
   /* magnetic buttons */
   if (!reduce && !small) {
@@ -775,7 +777,7 @@ main,header,footer{position:relative;z-index:1}
   var WA = 'https://wa.me/77716023447?text=';
   var BIZ = {
     shop: { label: 'Магазин', reply: 'Для магазина я бы сделал так:', items: [
-      'сайт, который продаёт: понятный каталог и оплата через Kaspi.kz',
+      'интернет-магазин с оплатой Kaspi: QR на сайте или ссылка, которая на телефоне сразу открывает приложение Kaspi',
       'бот в WhatsApp отвечает про наличие, цены и доставку 24/7',
       'заказы сами падают в CRM, клиент получает статус',
       'отчёт по продажам собирается сам каждый день'] },
@@ -793,7 +795,7 @@ main,header,footer{position:relative;z-index:1}
       'заявки из WhatsApp, Telegram и сайта — в одну систему',
       'клиент сам видит статус заказа в боте',
       'приложение для курьеров или мастеров на Android и iOS',
-      'оплата Kaspi.kz и автоматический отчёт'] },
+      'оплата по QR или ссылке Kaspi и автоматический отчёт'] },
     other: { label: 'Другое', reply: 'Расскажите, что съедает больше всего времени. Обычно это:', items: [
       'ответы на одинаковые вопросы клиентов',
       'перенос заявок из мессенджеров в таблицу',
