@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /construction
 
-Sitemap: https://tumarbaev.vercel.app/sitemap.xml
+Sitemap: https://tumarbayev.vercel.app/sitemap.xml
