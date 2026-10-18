@@ -26,7 +26,7 @@ full change history, standards catalogue and PDF export. I own the whole cycle â
 requirements, architecture, backend, frontend, deployment and support.
 
 **Loyalty and CRM platform** â€” freelance contributor
-A platform used by 1000+ businesses and 3M+ end users. Web application work,
+A platform used by 1000+ businesses across Kazakhstan and the CIS. Web application work,
 plus bringing the existing frontend into a Flutter mobile client on the
 established backend, and work on its WhatsApp integration over the official
 Meta Cloud API.
