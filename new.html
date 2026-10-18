@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Адай Тумарбаев — автоматизация, сайты и приложения</title>
+<meta name="description" content="Заявки не теряются, отчёты собираются сами, клиентам отвечает бот. Сайты, приложения, чат-боты WhatsApp и Telegram, ИИ и Kaspi.kz. Астана.">
+<meta name="robots" content="noindex, follow">
+<meta property="og:title" content="Адай Тумарбаев — автоматизация, сайты и приложения">
+<meta property="og:description" content="Посмотрите, как хаос из заявок превращается в систему, которая работает сама.">
+<meta property="og:image" content="https://tumarbaev.vercel.app/og-image.png">
+<meta name="theme-color" content="#07090f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#07090f;
+  --bg-2:#0b0f19;
+  --panel:#111827;
+  --panel-2:#151d2e;
+  --ink:#eef2fa;
+  --soft:#8f9cb5;
+  --line:#1c2538;
+  --line-2:#2a3550;
+  --blue:#4d7cff;
+  --blue-2:#8aa8ff;
+  --green:#34c759;
+  --wa:#25d366;
+  --tg:#2aabee;
+  --mail:#f5b14c;
+  --kaspi:#f14635;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+
+/* cursor spotlight */
+.spot{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(77,124,255,.10),transparent 60%);
+}
+main,header,footer{position:relative;z-index:1}
+
+/* nav */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:60;padding:0 14px}
+.nav__in{
+  max-width:var(--wrap);margin:0 auto;display:flex;align-items:center;gap:16px;
+  padding:9px 10px 9px 18px;border-radius:999px;
+  background:rgba(13,17,28,.72);backdrop-filter:blur(14px);border:1px solid var(--line);
+}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--blue);display:grid;place-items:center;font-weight:800;font-size:13px;letter-spacing:.04em}
+.nav__name{font-weight:700;font-size:15px;letter-spacing:-.01em}
+.nav__links{display:flex;gap:4px;margin-left:auto}
+.nav__links a{padding:7px 13px;border-radius:999px;font-size:14px;color:var(--soft);transition:color .2s,background .2s}
+.nav__links a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+
+/* glow button */
+@property --ga{syntax:"<angle>";initial-value:0deg;inherits:false}
+.glow{
+  display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  padding:14px 26px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap;
+  border:1.5px solid transparent;color:#fff;
+  background:
+    linear-gradient(180deg,#1a2233,#0d121d) padding-box,
+    conic-gradient(from var(--ga),rgba(255,255,255,.1) 0deg,rgba(255,255,255,.95) 50deg,rgba(138,168,255,.9) 85deg,rgba(255,255,255,.1) 140deg,rgba(255,255,255,.1) 360deg) border-box;
+  box-shadow:0 14px 28px -14px rgba(255,255,255,.55),0 0 26px -6px rgba(77,124,255,.45);
+  animation:spin 3.2s linear infinite;transition:transform .2s,box-shadow .2s;
+}
+.glow:hover{transform:translateY(-2px);box-shadow:0 18px 32px -14px rgba(255,255,255,.7),0 0 36px -4px rgba(77,124,255,.65)}
+.glow--sm{padding:9px 17px;font-size:14px}
+.glow--blue{background:linear-gradient(180deg,#5b87ff,#3d68e8) padding-box,conic-gradient(from var(--ga),rgba(255,255,255,.2) 0deg,#fff 50deg,rgba(255,255,255,.2) 140deg,rgba(255,255,255,.2) 360deg) border-box}
+@keyframes spin{to{--ga:360deg}}
+.live{flex:none;width:9px;height:9px;border-radius:50%;background:var(--green);animation:live 2s ease-out infinite}
+@keyframes live{
+  0%{box-shadow:0 0 0 0 rgba(52,199,89,.55),0 0 8px 1px rgba(52,199,89,.9)}
+  70%{box-shadow:0 0 0 9px rgba(52,199,89,0),0 0 8px 1px rgba(52,199,89,.9)}
+  100%{box-shadow:0 0 0 0 rgba(52,199,89,0),0 0 8px 1px rgba(52,199,89,.9)}
+}
+
+/* ===== 1. HERO: chaos -> order ===== */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:110px 0 60px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(900px 500px at 50% 35%,rgba(77,124,255,.12),transparent 65%);
+}
+.stage{position:absolute;inset:0;pointer-events:none}
+.msg{
+  position:absolute;left:0;top:0;display:flex;align-items:center;gap:9px;
+  padding:9px 14px 9px 10px;border-radius:16px;font-size:14px;font-weight:500;white-space:nowrap;
+  background:rgba(21,29,46,.92);border:1px solid var(--line-2);color:#dfe6f5;
+  box-shadow:0 10px 30px -12px rgba(0,0,0,.7);
+  will-change:transform,opacity;
+}
+.msg i{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:800;color:#06210f}
+.msg[data-ch="wa"] i{background:var(--wa)}
+.msg[data-ch="tg"] i{background:var(--tg);color:#04182a}
+.msg[data-ch="mail"] i{background:var(--mail);color:#2a1a02}
+.msg[data-ch="kaspi"] i{background:var(--kaspi);color:#fff}
+.msg.float{animation:bob var(--d,6s) ease-in-out infinite alternate}
+@keyframes bob{from{translate:0 0}to{translate:var(--bx,10px) var(--by,-14px)}}
+
+.hero__copy{position:relative;text-align:center;z-index:2}
+.badge{
+  display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:999px;
+  background:rgba(17,24,39,.85);border:1px solid var(--line-2);font-size:14px;font-weight:500;margin-bottom:26px;
+}
+.hero__title{position:relative;display:grid;place-items:center;font-size:clamp(36px,6.4vw,84px);font-weight:900;line-height:.98;letter-spacing:-.045em;min-height:2.95em}
+.hero__title > span{grid-area:1/1;display:block;text-align:center;transition:opacity .7s ease,filter .7s ease,transform .7s ease}
+.hero__title .t-order{opacity:0;filter:blur(12px);transform:translateY(20px)}
+.is-order .hero__title .t-chaos{opacity:0;filter:blur(12px);transform:translateY(-20px)}
+.is-order .hero__title .t-order{opacity:1;filter:none;transform:none}
+.grad{background:linear-gradient(90deg,#fff,#a8bdff 45%,#4d7cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.strike{position:relative;color:#ffb4ad}
+.hero__sub{max-width:620px;margin:22px auto 0;color:var(--soft);font-size:19px;min-height:3.2em}
+.hero__cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ghost{padding:14px 24px;border-radius:999px;border:1px solid var(--line-2);font-weight:600;font-size:16px;color:var(--ink);background:transparent;transition:background .2s,border-color .2s}
+.ghost:hover{background:rgba(255,255,255,.05);border-color:var(--blue)}
+
+.board{
+  position:relative;z-index:2;margin:46px auto 0;max-width:900px;width:100%;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 20px;
+}
+.col{
+  background:rgba(17,24,39,.75);border:1px solid var(--line);border-radius:18px;padding:16px 16px 18px;
+  transition:border-color .5s,box-shadow .5s,background .5s;min-width:0;
+}
+.col__h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);font-weight:600}
+.col__h i{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:background .4s,box-shadow .4s}
+.col__n{font-size:34px;font-weight:800;letter-spacing:-.03em;margin-top:6px;font-variant-numeric:tabular-nums}
+.col__s{font-size:13px;color:var(--soft)}
+.is-order .col{border-color:rgba(77,124,255,.35);background:rgba(21,29,46,.9);box-shadow:0 0 40px -14px rgba(77,124,255,.5)}
+.is-order .col__h i{background:var(--green);box-shadow:0 0 8px var(--green)}
+.col.pulse{animation:pulse .5s ease}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.replay{display:block;margin:18px auto 0;background:none;border:0;color:var(--soft);font-size:14px;text-decoration:underline;text-underline-offset:3px;opacity:0;transition:opacity .4s}
+.is-order .replay{opacity:1}
+
+/* ===== sections ===== */
+.sec{padding:120px 0;position:relative}
+.sec--alt{background:var(--bg-2)}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-2);margin-bottom:16px}
+.h2{font-size:clamp(32px,4.6vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.04}
+.lead{color:var(--soft);font-size:19px;max-width:620px;margin-top:18px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+/* ===== 2. CHAT ===== */
+.chat-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center}
+.chat{
+  background:linear-gradient(180deg,#0f1524,#0b101b);border:1px solid var(--line-2);border-radius:26px;
+  overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8),0 0 60px -30px rgba(77,124,255,.5);
+}
+.chat__top{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.chat__ava{width:40px;height:40px;border-radius:12px;background:var(--blue);display:grid;place-items:center;font-weight:800;font-size:14px}
+.chat__name{font-weight:700;font-size:15px;line-height:1.2}
+.chat__st{font-size:12.5px;color:var(--green)}
+.chat__body{height:440px;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.b{max-width:86%;padding:11px 15px;border-radius:18px;font-size:15px;line-height:1.5;animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+.b--bot{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line-2);border-bottom-left-radius:6px}
+.b--me{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:6px}
+.b ul{margin:8px 0 0;padding-left:18px}
+.b li{margin:3px 0}
+.b a.inl{color:var(--blue-2);text-decoration:underline;text-underline-offset:3px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.typing{align-self:flex-start;display:flex;gap:5px;padding:14px 16px;background:var(--panel-2);border:1px solid var(--line-2);border-radius:18px;border-bottom-left-radius:6px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--soft);animation:dot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-4px)}}
+.opts{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;animation:pop .35s ease}
+.opt{padding:9px 15px;border-radius:999px;border:1px solid var(--line-2);background:transparent;font-size:14px;font-weight:500;transition:background .2s,border-color .2s}
+.opt:hover{background:rgba(77,124,255,.14);border-color:var(--blue)}
+.opt--cta{background:var(--wa);border-color:var(--wa);color:#06210f;font-weight:700}
+.opt--cta:hover{background:#3be07a;border-color:#3be07a}
+
+/* ===== 3. KINETIC ===== */
+.big{
+  font-size:clamp(56px,13.5vw,210px);font-weight:900;letter-spacing:-.06em;line-height:.86;
+  text-transform:uppercase;white-space:nowrap;
+}
+.big span{display:inline-block;will-change:transform}
+.big--out{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.28)}
+.kin{overflow:hidden;padding:110px 0 70px}
+.kin__row{display:block}
+
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--bg-2)}
+.marquee__track{display:flex;gap:46px;width:max-content;animation:mq 34s linear infinite}
+.marquee span{font-size:22px;font-weight:700;color:var(--soft);white-space:nowrap;letter-spacing:-.01em}
+.marquee span b{color:var(--blue-2);margin-right:46px;font-weight:700}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:56px}
+.stat{background:var(--bg);padding:34px 26px}
+.stat b{display:block;font-size:clamp(40px,5vw,64px);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;color:var(--soft);font-size:15px;margin-top:12px}
+
+/* projects */
+.projs{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:56px}
+.p{
+  grid-column:span 3;position:relative;border-radius:24px;overflow:hidden;min-height:340px;
+  padding:30px;display:flex;flex-direction:column;justify-content:flex-end;
+  border:1px solid var(--line-2);transform-style:preserve-3d;transition:transform .25s ease,box-shadow .3s ease;
+}
+.p--wide{grid-column:span 6;min-height:300px}
+.p--third{grid-column:span 2}
+.p::before{content:"";position:absolute;inset:0;z-index:0}
+.p::after{
+  content:"";position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .3s;
+  background:radial-gradient(360px circle at var(--px,50%) var(--py,50%),rgba(255,255,255,.14),transparent 60%);
+}
+.p:hover::after{opacity:1}
+.p:hover{box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.p > *{position:relative;z-index:1}
+.p__big{position:absolute !important;top:22px;right:26px;font-size:clamp(60px,8vw,110px);font-weight:900;letter-spacing:-.05em;line-height:1;opacity:.95}
+.p h3{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.p p{color:rgba(238,242,250,.78);font-size:15.5px;margin-top:8px;max-width:520px}
+.p__tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.p__tags span{font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.9)}
+.g1::before{background:radial-gradient(120% 120% at 100% 0%,#3f7bff 0%,#1a3399 40%,#0a1233 100%)}
+.g2::before{background:radial-gradient(120% 120% at 100% 0%,#22d07d 0%,#0e7f4b 42%,#05301c 100%)}
+.g3::before{background:linear-gradient(160deg,#121212,#000 60%);}
+.g3 .p__big{color:var(--wa)}
+.g4::before{background:radial-gradient(120% 120% at 0% 0%,#8b5cf6 0%,#4c1d95 45%,#160a33 100%)}
+.g5::before{background:linear-gradient(180deg,#ffb020 0%,#f26a10 55%,#8f2c04 100%)}
+.g5::after{background:radial-gradient(360px circle at var(--px,50%) var(--py,50%),rgba(255,255,255,.22),transparent 60%)}
+
+/* services rows */
+.svcs{margin-top:50px;border-top:1px solid var(--line)}
+.svc{
+  display:grid;grid-template-columns:80px 1fr 1.2fr;gap:24px;align-items:baseline;
+  padding:28px 0;border-bottom:1px solid var(--line);transition:padding .35s ease,background .35s ease;
+}
+.svc:hover{padding-left:16px;background:linear-gradient(90deg,rgba(77,124,255,.08),transparent 70%)}
+.svc__n{font-size:14px;font-weight:700;color:var(--blue-2);letter-spacing:.1em}
+.svc h3{font-size:clamp(22px,2.6vw,32px);font-weight:700;letter-spacing:-.025em;line-height:1.15}
+.svc p{color:var(--soft);font-size:16px}
+
+/* pledge */
+.pledge{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.pl{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:28px}
+.pl b{display:block;font-size:20px;margin-bottom:8px;letter-spacing:-.01em}
+.pl p{color:var(--soft);font-size:15.5px}
+
+/* contact */
+.contact{text-align:center;padding:140px 0 120px;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 360px at 50% 30%,rgba(77,124,255,.16),transparent 65%)}
+.contact > *{position:relative}
+.contact .big{font-size:clamp(44px,10vw,150px)}
+.contact__btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.contact__meta{margin-top:26px;color:var(--soft);font-size:15px}
+.contact__meta a{color:var(--blue-2)}
+.foot{border-top:1px solid var(--line);padding:22px 0;text-align:center;font-size:14px;color:var(--soft)}
+.foot a{color:var(--soft);text-decoration:underline;text-underline-offset:3px}
+
+@media (max-width:900px){
+  .nav__links{display:none}
+  .board{grid-template-columns:repeat(2,1fr)}
+  .chat-wrap{grid-template-columns:1fr;gap:34px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .p,.p--third{grid-column:span 6}
+  .svc{grid-template-columns:1fr;gap:6px}
+  .pledge{grid-template-columns:1fr}
+  .sec{padding:84px 0}
+}
+@media (max-width:640px){
+  .stage{z-index:3}
+}
+@media (max-width:520px){
+  .nav__name{display:none}
+  .nav .glow{margin-left:auto}
+  .hero{padding-top:96px}
+  .hero__sub{font-size:16.5px}
+  .msg{font-size:12.5px;padding:7px 11px 7px 8px}
+  .chat__body{height:400px}
+  .stat{padding:24px 18px}
+  .p{padding:24px;min-height:300px}
+  .contact__btns .glow{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .glow,.live,.msg.float,.marquee__track{animation:none !important}
+  .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body data-contact="main">
+<div class="spot" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="logo" href="#top" aria-label="Наверх">АТ</a>
+    <span class="nav__name">Адай Тумарбаев</span>
+    <nav class="nav__links">
+      <a href="#chat">Под ваш бизнес</a>
+      <a href="#work">Работы</a>
+      <a href="#services">Услуги</a>
+    </nav>
+    <a class="glow glow--sm" href="#contact"><i class="live" aria-hidden="true"></i>Обсудить проект</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 1. CHAOS -> ORDER -->
+  <section class="hero" id="hero">
+    <div class="stage" id="stage" aria-hidden="true"></div>
+
+    <div class="wrap hero__copy">
+      <div class="badge"><i class="live" aria-hidden="true"></i>Открыт для проектов</div>
+      <h1 class="hero__title">
+        <span class="t-chaos">Заявки теряются.<br>Отчёты — вручную.<br><em class="strike" style="font-style:normal">Клиенты ждут.</em></span>
+        <span class="t-order"><span class="grad">Всё работает<br>само.</span></span>
+      </h1>
+      <p class="hero__sub" id="heroSub">Так выглядит обычный день бизнеса: десятки сообщений из WhatsApp, Telegram и почты — и всё вручную.</p>
+      <div class="hero__cta">
+        <button class="glow glow--blue" id="fix" type="button"><i class="live" aria-hidden="true"></i>Включить автоматизацию</button>
+        <a class="ghost" href="#chat">Что сделаю для вас</a>
+      </div>
+    </div>
+
+    <div class="board" id="board">
+      <div class="col" data-k="bot"><div class="col__h"><i></i>Бот ответил</div><div class="col__n" data-n>0</div><div class="col__s">клиентам 24/7</div></div>
+      <div class="col" data-k="crm"><div class="col__h"><i></i>В CRM</div><div class="col__n" data-n>0</div><div class="col__s">заявок без потерь</div></div>
+      <div class="col" data-k="pay"><div class="col__h"><i></i>Kaspi.kz</div><div class="col__n" data-n>0</div><div class="col__s">оплат проверено</div></div>
+      <div class="col" data-k="rep"><div class="col__h"><i></i>Отчёт</div><div class="col__n" data-n>—</div><div class="col__s">собирается сам</div></div>
+    </div>
+    <button class="replay" id="replay" type="button">Посмотреть ещё раз</button>
+  </section>
+
+  <!-- 2. CHAT -->
+  <section class="sec sec--alt" id="chat">
+    <div class="wrap chat-wrap">
+      <div class="rv">
+        <span class="eyebrow">Под ваш бизнес</span>
+        <h2 class="h2">Спросите бота,<br>что я сделаю<br><span class="grad">именно для вас</span></h2>
+        <p class="lead">Этот чат — маленький пример того, что я делаю для клиентов. Выберите свой бизнес, и бот покажет, что можно автоматизировать.</p>
+      </div>
+      <div class="chat rv rv-d2" role="region" aria-label="Демо-чат">
+        <div class="chat__top">
+          <div class="chat__ava">АТ</div>
+          <div><div class="chat__name">Бот Адая</div><div class="chat__st" id="chatSt">в сети</div></div>
+        </div>
+        <div class="chat__body" id="chatBody" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. KINETIC -->
+  <section class="kin" aria-label="Адай Тумарбаев">
+    <div class="big kin__row" data-par="-0.18"><span>Aday</span></div>
+    <div class="big big--out kin__row" data-par="0.14" style="text-align:right"><span>Tumarbayev</span></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span><b>Go</b><b>Python</b><b>PHP</b><b>JavaScript</b><b>Flutter</b><b>WhatsApp API</b><b>Telegram</b><b>Kaspi.kz</b><b>LLM</b><b>SQL · NoSQL</b><b>iOS · Android</b></span>
+      <span><b>Go</b><b>Python</b><b>PHP</b><b>JavaScript</b><b>Flutter</b><b>WhatsApp API</b><b>Telegram</b><b>Kaspi.kz</b><b>LLM</b><b>SQL · NoSQL</b><b>iOS · Android</b></span>
+    </div>
+  </div>
+
+  <section class="sec" id="work">
+    <div class="wrap">
+      <div class="rv">
+        <span class="eyebrow">В цифрах</span>
+        <h2 class="h2">Не обещания —<br>то, что уже работает</h2>
+      </div>
+      <div class="stats rv rv-d1">
+        <div class="stat"><b data-count="5" data-suf="+">0</b><span>лет в IT</span></div>
+        <div class="stat"><b data-count="12">0</b><span>мобильных приложений, 8 сейчас в сторах</span></div>
+        <div class="stat"><b data-count="2" data-suf=" млн+">0</b><span>пользователей в Казахстане и СНГ</span></div>
+        <div class="stat"><b data-count="1500" data-suf="+">0</b><span>обращений в сутки обрабатывают мои боты</span></div>
+      </div>
+
+      <div class="projs">
+        <article class="p p--wide g1 rv" data-tilt>
+          <div class="p__big">200+</div>
+          <h3>Корпоративная платформа инженерной компании</h3>
+          <p>Полная цифровизация данных — и из неё аналитика для руководства. Реестр проектов, заявки, стандарты, уведомления, вход через корпоративную почту. Отвечаю за платформу целиком.</p>
+          <div class="p__tags"><span>200+ сотрудников ежедневно</span><span>2 года</span><span>Весь цикл</span></div>
+        </article>
+        <article class="p g2 rv" data-tilt>
+          <div class="p__big">1000+</div>
+          <h3>Платформа лояльности и CRM</h3>
+          <p>Веб, мобильный клиент, WhatsApp через официальный Meta Cloud API и автоматизация Telegram.</p>
+          <div class="p__tags"><span>1000+ бизнесов</span><span>КЗ и СНГ</span></div>
+        </article>
+        <article class="p g3 rv rv-d1" data-tilt>
+          <div class="p__big">24/7</div>
+          <h3>Чат-боты WhatsApp и Telegram</h3>
+          <p>Принимают заявки ночью, отвечают на типовые вопросы, принимают оплату Kaspi.kz, ведут каналы.</p>
+          <div class="p__tags"><span>1500+ обращений в сутки</span><span>Meta Cloud API</span></div>
+        </article>
+        <article class="p p--third g4 rv" data-tilt>
+          <h3>Локальный ИИ</h3>
+          <p>Модели на серверах компании — документы и персональные данные никуда не уходят.</p>
+          <div class="p__tags"><span>0 данных наружу</span></div>
+        </article>
+        <a class="p p--third g5 rv rv-d1" data-tilt href="proektirovanie">
+          <h3>Проектирование в цифрах →</h3>
+          <p>Аналитика, дедлайны и ИИ-помощник по АГСК для проектных компаний.</p>
+          <div class="p__tags"><span>Отдельная страница</span></div>
+        </a>
+        <article class="p p--third g1 rv rv-d2" data-tilt>
+          <h3>12 мобильных приложений</h3>
+          <p>Android и iOS из одной кодовой базы. Быстрые даже на слабых телефонах.</p>
+          <div class="p__tags"><span>App Store</span><span>Google Play</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--alt" id="services">
+    <div class="wrap">
+      <div class="rv">
+        <span class="eyebrow">Услуги</span>
+        <h2 class="h2">Одним подрядчиком —<br>от идеи до поддержки</h2>
+      </div>
+      <div class="svcs">
+        <div class="svc rv"><span class="svc__n">01</span><h3>Сайты и веб-системы</h3><p>Лендинги, интернет-магазины, корпоративные порталы. Интеграции с CRM, оплатой Kaspi.kz и внешними API.</p></div>
+        <div class="svc rv"><span class="svc__n">02</span><h3>Мобильные приложения</h3><p>Android и iOS из одной кодовой базы, публикация в App Store и Google Play.</p></div>
+        <div class="svc rv"><span class="svc__n">03</span><h3>Чат-боты и автоматизация</h3><p>WhatsApp и Telegram, заявки в CRM, автоотчёты, рассылки, каналы — рутина уходит боту.</p></div>
+        <div class="svc rv"><span class="svc__n">04</span><h3>ИИ для бизнеса</h3><p>Языковые модели на ваших данных, локальные модели для конфиденциальной информации, внедрение ChatGPT, Claude и Gemini в команду.</p></div>
+        <div class="svc rv"><span class="svc__n">05</span><h3>Дизайн, который продаёт</h3><p>Структура под продажу: оффер, выгоды, призыв к действию. Фирменный стиль, баннеры и Reels.</p></div>
+        <div class="svc rv"><span class="svc__n">06</span><h3>SEO и продвижение</h3><p>Техническая оптимизация, семантика и сопровождение — чтобы вас находили раньше конкурентов.</p></div>
+      </div>
+
+      <div class="pledge">
+        <div class="pl rv"><b>Сдаю, когда работает у вас</b><p>Проверяю вручную и автотестами, отлаживаю все связи — CRM, почту, мессенджеры, оплаты, оборудование.</p></div>
+        <div class="pl rv rv-d1"><b>Цена до старта</b><p>Срок и стоимость называю до начала работ — конкретно, а не «от».</p></div>
+        <div class="pl rv rv-d2"><b>Поддержка после запуска</b><p>По отдельному договору: доработки, интеграции, мониторинг и реакция на сбои.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <span class="eyebrow rv">Давайте сделаем</span>
+      <div class="big rv">Ваш проект</div>
+      <p class="lead rv" style="margin:18px auto 0">Напишите задачу — отвечу в течение дня и честно скажу, реально ли это упростить.</p>
+      <div class="contact__btns rv">
+        <a class="glow" href="https://wa.me/77716023447"><i class="live" aria-hidden="true"></i>Написать в WhatsApp</a>
+        <a class="glow" href="https://t.me/aday_space"><i class="live" aria-hidden="true"></i>Написать в Telegram</a>
+        <a class="glow" href="mailto:adaytumarbayev@gmail.com"><i class="live" aria-hidden="true"></i>adaytumarbayev@gmail.com</a>
+      </div>
+      <p class="contact__meta rv"><a href="tel:+77716023447">+7 771 602 3447</a> · Астана, Казахстан</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot"><a href="/">Классическая версия сайта</a></footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var small = window.matchMedia('(max-width: 640px)').matches;
+
+  /* ---------- cursor spotlight ---------- */
+  if (!small) {
+    window.addEventListener('pointermove', function (e) {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    }, { passive: true });
+  }
+
+  /* ---------- 1. chaos -> order ---------- */
+  var MSGS = [
+    ['wa', 'Сколько стоит доставка?', 'bot'], ['tg', 'Где мой заказ?', 'bot'], ['mail', 'Пришлите счёт', 'pay'],
+    ['wa', 'Есть в наличии?', 'bot'], ['kaspi', 'Оплатил, проверьте', 'pay'], ['tg', 'Хочу записаться', 'crm'],
+    ['mail', 'Отчёт за неделю?', 'rep'], ['wa', 'Вы работаете в выходные?', 'bot'], ['tg', 'Оставлю заявку', 'crm'],
+    ['wa', 'Перезвоните мне', 'crm'], ['mail', 'Нужна сверка', 'rep'], ['kaspi', 'Перевёл через Kaspi', 'pay'],
+    ['tg', 'Какие сроки?', 'bot'], ['wa', 'Нужна консультация', 'crm'], ['mail', 'Где акт?', 'rep'],
+    ['wa', 'Цены актуальны?', 'bot'], ['tg', 'Можно счёт на ТОО?', 'pay'], ['wa', 'Ответьте, пожалуйста!', 'crm']
+  ];
+  var ICON = { wa: 'WA', tg: 'TG', mail: '@', kaspi: 'K' };
+  var stage = document.getElementById('stage');
+  var hero = document.getElementById('hero');
+  var board = document.getElementById('board');
+  var sub = document.getElementById('heroSub');
+  var fixBtn = document.getElementById('fix');
+  var replay = document.getElementById('replay');
+  var SUB_CHAOS = sub.textContent;
+  var SUB_ORDER = 'Бот отвечает клиентам, заявки попадают в CRM, оплаты Kaspi проверяются, отчёт собирается сам. Так я настраиваю бизнес.';
+  var nodes = [];
+  var running = false, done = false;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function spawn() {
+    stage.innerHTML = '';
+    nodes = [];
+    var list = small ? MSGS.slice(0, 10) : MSGS;
+    var W = stage.clientWidth, H = stage.clientHeight;
+    list.forEach(function (m, i) {
+      var el = document.createElement('div');
+      el.className = 'msg float';
+      el.dataset.ch = m[0];
+      el.dataset.k = m[2];
+      el.innerHTML = '<i>' + ICON[m[0]] + '</i>' + m[1];
+      stage.appendChild(el);
+      // place around the edges, avoid the central copy block
+      var x, y, side = i % 4;
+      var ew = el.offsetWidth, eh = el.offsetHeight;
+      if (side === 0) { x = rand(10, Math.max(12, W * 0.2 - ew * 0.4)); y = rand(H * 0.14, H * 0.7); }
+      else if (side === 1) { x = rand(W * 0.8 - ew * 0.6, W - ew - 10); y = rand(H * 0.14, H * 0.7); }
+      else if (side === 2) { x = rand(W * 0.05, W - ew - 20); y = rand(H * 0.1, H * 0.2); }
+      else { x = rand(W * 0.05, W - ew - 20); y = rand(H * 0.84, H * 0.92); }
+      if (small) {
+        var br = board.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+        x = rand(6, Math.max(8, W - ew - 6));
+        y = rand(br.top - sr.top - 10, br.bottom - sr.top - eh);
+      }
+      el.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rand(-6, 6) + 'deg)';
+      el.style.setProperty('--d', rand(4, 8) + 's');
+      el.style.setProperty('--bx', rand(-16, 16) + 'px');
+      el.style.setProperty('--by', rand(-18, 18) + 'px');
+      el.style.opacity = '0';
+      setTimeout(function () { el.style.transition = 'opacity .5s ease'; el.style.opacity = '1'; }, reduce ? 0 : i * 140);
+      nodes.push({ el: el, x: x, y: y, k: m[2] });
+    });
+  }
+
+  function setCount(col, val) {
+    var n = col.querySelector('[data-n]');
+    n.textContent = val;
+    col.classList.remove('pulse'); void col.offsetWidth; col.classList.add('pulse');
+  }
+
+  function order() {
+    if (running || done) return;
+    running = true;
+    hero.classList.add('is-order');
+    sub.textContent = SUB_ORDER;
+    var counts = { bot: 0, crm: 0, pay: 0, rep: 0 };
+    var sRect = stage.getBoundingClientRect();
+    nodes.forEach(function (n, i) {
+      var col = board.querySelector('[data-k="' + n.k + '"]');
+      var c = col.getBoundingClientRect();
+      var tx = c.left - sRect.left + c.width / 2 - n.el.offsetWidth / 2;
+      var ty = c.top - sRect.top + 20;
+      var delay = reduce ? 0 : i * 70;
+      setTimeout(function () {
+        n.el.classList.remove('float');
+        n.el.style.transition = reduce ? 'none' : 'transform .75s cubic-bezier(.6,.0,.2,1), opacity .75s ease';
+        n.el.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(.5)';
+        n.el.style.opacity = '0';
+        setTimeout(function () {
+          if (n.k === 'rep') setCount(col, '✓');
+          else setCount(col, ++counts[n.k]);
+        }, reduce ? 0 : 650);
+      }, delay);
+    });
+    setTimeout(function () { running = false; done = true; }, reduce ? 0 : nodes.length * 70 + 900);
+  }
+
+  function reset() {
+    hero.classList.remove('is-order');
+    sub.textContent = SUB_CHAOS;
+    board.querySelectorAll('.col').forEach(function (c) {
+      c.querySelector('[data-n]').textContent = c.dataset.k === 'rep' ? '—' : '0';
+    });
+    done = false;
+    spawn();
+  }
+
+  fixBtn.addEventListener('click', order);
+  replay.addEventListener('click', reset);
+  spawn();
+  window.addEventListener('resize', function () { if (!done && !running) spawn(); });
+  // auto-play once if visitor just watches
+  var auto = setTimeout(order, 6500);
+  fixBtn.addEventListener('click', function () { clearTimeout(auto); });
+
+  /* ---------- 2. chat ---------- */
+  var body = document.getElementById('chatBody');
+  var st = document.getElementById('chatSt');
+  var WA = 'https://wa.me/77716023447?text=';
+  var BIZ = {
+    shop: { label: 'Магазин', reply: 'Для магазина я бы сделал так:', items: [
+      'сайт, который продаёт: понятный каталог и оплата через Kaspi.kz',
+      'бот в WhatsApp отвечает про наличие, цены и доставку 24/7',
+      'заказы сами падают в CRM, клиент получает статус',
+      'отчёт по продажам собирается сам каждый день'] },
+    clinic: { label: 'Клиника / салон', reply: 'Для клиники или салона:', items: [
+      'онлайн-запись с сайта и из WhatsApp без звонков',
+      'напоминания клиентам о записи — меньше неявок',
+      'бот отвечает на типовые вопросы о ценах и услугах',
+      'локальный ИИ — данные пациентов не уходят наружу'] },
+    design: { label: 'Проектная / стройка', reply: 'Для проектной или строительной компании:', items: [
+      'все проектные данные в одной системе — и сразу аналитика',
+      'диаграммы, сроки и напоминания о дедлайнах',
+      'ИИ-помощник объясняет АГСК и нормативы',
+      'подробнее — на <a class="inl" href="proektirovanie">отдельной странице</a>'] },
+    service: { label: 'Услуги / доставка', reply: 'Для сервиса или доставки:', items: [
+      'заявки из WhatsApp, Telegram и сайта — в одну систему',
+      'клиент сам видит статус заказа в боте',
+      'приложение для курьеров или мастеров на Android и iOS',
+      'оплата Kaspi.kz и автоматический отчёт'] },
+    other: { label: 'Другое', reply: 'Расскажите, что съедает больше всего времени. Обычно это:', items: [
+      'ответы на одинаковые вопросы клиентов',
+      'перенос заявок из мессенджеров в таблицу',
+      'ручные отчёты для руководителя',
+      'Напишите задачу — скажу честно, реально ли это упростить'] }
+  };
+
+  function scrollChat() { body.scrollTop = body.scrollHeight; }
+  function add(html, who) {
+    var b = document.createElement('div');
+    b.className = 'b b--' + who;
+    b.innerHTML = html;
+    body.appendChild(b); scrollChat();
+    return b;
+  }
+  function typing(ms, cb) {
+    st.textContent = 'печатает…';
+    var t = document.createElement('div');
+    t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
+    body.appendChild(t); scrollChat();
+    setTimeout(function () { t.remove(); st.textContent = 'в сети'; cb(); }, reduce ? 0 : ms);
+  }
+  function options(list) {
+    var o = document.createElement('div');
+    o.className = 'opts';
+    list.forEach(function (it) {
+      var el;
+      if (it.href) {
+        el = document.createElement('a'); el.href = it.href; el.target = '_blank'; el.rel = 'noopener';
+      } else {
+        el = document.createElement('button'); el.type = 'button';
+        el.addEventListener('click', function () { o.remove(); it.fn(); });
+      }
+      el.className = 'opt' + (it.cta ? ' opt--cta' : '');
+      el.textContent = it.t;
+      o.appendChild(el);
+    });
+    body.appendChild(o); scrollChat();
+  }
+  function ask() {
+    typing(700, function () {
+      add('Какой у вас бизнес?', 'bot');
+      options(Object.keys(BIZ).map(function (k) {
+        return { t: BIZ[k].label, fn: function () { pick(k); } };
+      }));
+    });
+  }
+  function pick(k) {
+    var b = BIZ[k];
+    add(b.label, 'me');
+    typing(1100, function () {
+      add(b.reply + '<ul>' + b.items.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>', 'bot');
+      typing(800, function () {
+        add('Обсудим вашу задачу?', 'bot');
+        var text = 'Здравствуйте, Адай! Пишу с сайта.\nБизнес: ' + b.label + '\nХочу обсудить автоматизацию.\nКоротко о задаче: ';
+        options([
+          { t: 'Написать в WhatsApp', href: WA + encodeURIComponent(text), cta: true },
+          { t: 'Другой бизнес', fn: ask }
+        ]);
+      });
+    });
+  }
+  var chatStarted = false;
+  function startChat() {
+    if (chatStarted) return; chatStarted = true;
+    typing(600, function () {
+      add('Привет! Я бот Адая 👋 Покажу, что можно автоматизировать в вашем бизнесе.', 'bot');
+      ask();
+    });
+  }
+
+  /* ---------- reveal + counters + chat start ---------- */
+  function countUp(el) {
+    var to = +el.dataset.count, suf = el.dataset.suf || '';
+    if (reduce) { el.textContent = to + suf; return; }
+    var t0 = null, dur = 1400;
+    function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      en.target.querySelectorAll('[data-count]').forEach(countUp);
+      if (en.target.closest('#chat')) startChat();
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+
+  /* ---------- kinetic parallax ---------- */
+  var par = document.querySelectorAll('[data-par]');
+  if (!reduce) {
+    var ticking = false;
+    function onScroll() {
+      par.forEach(function (row) {
+        var r = row.getBoundingClientRect();
+        var mid = r.top + r.height / 2 - window.innerHeight / 2;
+        row.firstElementChild.style.transform = 'translateX(' + (mid * +row.dataset.par) + 'px)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+    onScroll();
+  }
+
+  /* ---------- tilt cards ---------- */
+  if (!reduce && !small) {
+    document.querySelectorAll('[data-tilt]').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--px', px * 100 + '%');
+        card.style.setProperty('--py', py * 100 + '%');
+        card.style.transform = 'perspective(900px) rotateX(' + ((0.5 - py) * 6) + 'deg) rotateY(' + ((px - 0.5) * 8) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+    });
+  }
+})();
+</script>
+<script src="contact.js"></script>
+</body>
+</html>
