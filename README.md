@@ -38,5 +38,5 @@ through to live deployment.
 
 ## Contact
 
-- Email: tumarbaev666@gmail.com
+- Email: adaytumarbayev@gmail.com
 - Location: Astana, Kazakhstan
