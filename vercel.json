@@ -1,7 +1,35 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/construction", "destination": "/proektirovanie", "permanent": true },
-    { "source": "/construction.html", "destination": "/proektirovanie", "permanent": true }
+    {
+      "source": "/construction",
+      "destination": "/proektirovanie",
+      "permanent": true
+    },
+    {
+      "source": "/construction.html",
+      "destination": "/proektirovanie",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(css|js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(png|svg|ico)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, immutable"
+        }
+      ]
+    }
   ]
 }
