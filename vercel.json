@@ -10,6 +10,21 @@
       "source": "/construction.html",
       "destination": "/proektirovanie",
       "permanent": true
+    },
+    {
+      "source": "/new",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/new.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/old",
+      "destination": "/classic",
+      "permanent": false
     }
   ],
   "headers": [
