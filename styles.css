@@ -118,6 +118,7 @@ ul,ol{margin:0;padding:0}
 .card__n{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.12em;margin-bottom:12px}
 .card h3{font-size:21px;margin-bottom:10px}
 .card p{color:var(--ink-soft);font-size:16px}
+.card p a{color:var(--accent-soft);text-underline-offset:3px}
 .ticks{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:16px}
 .ticks li{position:relative;padding-left:24px;font-size:15px;color:var(--ink-soft)}
 .ticks li::before{
