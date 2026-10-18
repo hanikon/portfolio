@@ -436,6 +436,9 @@ main,header,footer{position:relative;z-index:1}
 .opt:hover{background:rgba(77,124,255,.14);border-color:var(--blue)}
 .opt--cta{background:var(--wa);border-color:var(--wa);color:#06210f;font-weight:700}
 .opt--cta:hover{background:#3be07a;border-color:#3be07a}
+.opt--tg{background:var(--tg);border-color:var(--tg);color:#03182a;font-weight:700}
+.opt--tg:hover{background:#4dbbf2;border-color:#4dbbf2}
+.glow--fix.is-cta{animation:spin 3.2s linear infinite, nudge 2.4s ease-in-out infinite}
 
 /* ===== 3. KINETIC ===== */
 .big{
@@ -850,6 +853,7 @@ main,header,footer{position:relative;z-index:1}
   function play() {
     clearAll();
     phase = 'chaos';
+    setFixLabel(false);
     hero.classList.remove('is-order');
     sub.textContent = SUB_CHAOS;
     feedL.innerHTML = ''; feedR.innerHTML = ''; cards = [];
@@ -908,12 +912,30 @@ main,header,footer{position:relative;z-index:1}
         bump(d[5]);
         left -= 1;
         unread.textContent = String(left);
-        if (left === 0) unreadTxt.textContent = 'срочных задач — всё под контролем';
+        if (left === 0) { unreadTxt.textContent = 'срочных задач — всё под контролем'; setFixLabel(true); }
       }, i * 260);
     });
   }
 
-  fixBtn.addEventListener('click', solve);
+  function setFixLabel(done) {
+    fixBtn.innerHTML = '<i class="live" aria-hidden="true"></i>' + (done ? 'Хочу так же — разобрать мой бизнес' : 'Решить автоматически');
+    fixBtn.classList.toggle('is-cta', done);
+  }
+  // first click shows the result, then takes the visitor to the bot; after that it goes straight there
+  fixBtn.addEventListener('click', function () {
+    if (phase === 'chaos') {
+      solve();
+      var total = (wide() ? P : P.slice(0, 4)).length;
+      later(function () { goChat(true); }, total * 260 + 1600);
+    } else {
+      goChat(true);
+    }
+  });
+  function goChat(fromHero) {
+    var chat = document.getElementById('chat');
+    chat.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    startChat(fromHero);
+  }
   replay.addEventListener('click', play);
   play();
 
@@ -1058,7 +1080,7 @@ main,header,footer{position:relative;z-index:1}
         el = document.createElement('button'); el.type = 'button';
         el.addEventListener('click', function () { o.remove(); it.fn(); });
       }
-      el.className = 'opt' + (it.cta ? ' opt--cta' : '');
+      el.className = 'opt' + (it.cta ? ' opt--cta' : '') + (it.tg ? ' opt--tg' : '');
       el.textContent = it.t;
       o.appendChild(el);
     });
@@ -1082,13 +1104,26 @@ main,header,footer{position:relative;z-index:1}
         var text = 'Здравствуйте, Адай! Пишу с сайта.\nБизнес: ' + b.label + '\nХочу обсудить автоматизацию.\nКоротко о задаче: ';
         options([
           { t: 'Написать в WhatsApp', href: WA + encodeURIComponent(text), cta: true },
+          { t: 'Написать в Telegram', href: 'https://t.me/aday_space?text=' + encodeURIComponent(text), tg: true },
           { t: 'Другой бизнес', fn: ask }
         ]);
       });
     });
   }
-  var chatStarted = false;
-  function startChat() {
+  var chatStarted = false, heroIntro = false;
+  function startChat(fromHero) {
+    if (fromHero) {
+      if (heroIntro) return; heroIntro = true;
+      var first = !chatStarted; chatStarted = true;
+      body.querySelectorAll('.opts').forEach(function (o) { o.remove(); });
+      typing(first ? 700 : 500, function () {
+        var n = (wide() ? P : P.slice(0, 4)).length;
+        var m = n % 10, h = n % 100, word = (m === 1 && h !== 11) ? 'срочная задача решилась' : (m >= 2 && m <= 4 && (h < 12 || h > 14)) ? 'срочные задачи решились' : 'срочных задач решились';
+        add('Вы только что видели, как ' + n + ' ' + word + ' сами 🙂 Давайте посмотрим, что можно так же упростить у вас.', 'bot');
+        ask();
+      });
+      return;
+    }
     if (chatStarted) return; chatStarted = true;
     typing(600, function () {
       add('Привет! Я бот Адая 👋 Покажу, что можно автоматизировать в вашем бизнесе.', 'bot');
