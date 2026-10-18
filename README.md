@@ -39,4 +39,5 @@ through to live deployment.
 ## Contact
 
 - Email: adaytumarbayev@gmail.com
+- Phone / WhatsApp / Telegram: +7 771 602 3447
 - Location: Astana, Kazakhstan
