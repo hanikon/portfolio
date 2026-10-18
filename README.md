@@ -11,7 +11,8 @@ plus freelance client work.
 | | |
 |---|---|
 | Languages | Go, Python, PHP, JavaScript, Dart |
-| Backend | REST APIs, background job queues, SQL and NoSQL |
+| Backend | REST APIs, synchronous and asynchronous jobs, background queues, SQL and NoSQL |
+| Messaging | In-product chats and messengers, notifications via email, Telegram and WhatsApp |
 | Frontend & mobile | HTML, CSS, JavaScript, Flutter |
 | Bots & integrations | Telegram Bot API, WhatsApp Business API (Meta Cloud API) |
 | AI | LLM API integration |
