@@ -560,6 +560,7 @@ main,header,footer{position:relative;z-index:1}
   .chat__body{height:400px}
   .stat{padding:24px 18px}
   .p{padding:24px;min-height:300px}
+  .p__big{position:static !important;display:block;font-size:64px;margin-bottom:auto;padding-bottom:18px}
   .contact__btns .glow{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
@@ -980,7 +981,12 @@ main,header,footer{position:relative;z-index:1}
     pos = v;
     ba.style.setProperty('--pos', v + '%');
     baR.value = v;
-    if (baLabel) baLabel.textContent = v > 50 ? 'Было' : 'Стало';
+    if (baLabel) {
+      baLabel.textContent = v > 50 ? 'Было' : 'Стало';
+      // keep the label inside the frame near the edges
+      baLabel.style.transform = 'translateX(' + (v > 85 ? '-100%' : v < 15 ? '0%' : '-50%') + ')';
+      baLabel.style.marginLeft = v > 85 ? '-8px' : v < 15 ? '8px' : '0';
+    }
   }
   // timeline: hold "было" -> wipe -> hold "стало" -> wipe back
   var HOLD = 2600, WIPE = 1500, CYCLE = 2 * (HOLD + WIPE), tStart = null;
