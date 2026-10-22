@@ -562,6 +562,7 @@ main,header,footer{position:relative;z-index:1}
   .p{padding:24px;min-height:300px}
   .p__big{position:static !important;display:block;font-size:64px;margin-bottom:auto;padding-bottom:18px}
   .contact__btns .glow{width:100%}
+  .hero__cta .glow{max-width:100%;white-space:normal;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -919,7 +920,7 @@ main,header,footer{position:relative;z-index:1}
   }
 
   function setFixLabel(done) {
-    fixBtn.innerHTML = '<i class="live" aria-hidden="true"></i>' + (done ? 'Хочу так же — разобрать мой бизнес' : 'Решить автоматически');
+    fixBtn.innerHTML = '<i class="live" aria-hidden="true"></i>' + (done ? (small ? 'Хочу так же — разобрать' : 'Хочу так же — разобрать мой бизнес') : 'Решить автоматически');
     fixBtn.classList.toggle('is-cta', done);
   }
   // first click shows the result, then takes the visitor to the bot; after that it goes straight there
