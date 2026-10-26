@@ -629,12 +629,12 @@ main,header,footer{position:relative;z-index:1}
       <div class="rv">
         <span class="eyebrow">Под ваш бизнес</span>
         <h2 class="h2 wr">Спросите бота,<br>что я сделаю<br><span class="grad">именно для вас</span></h2>
-        <p class="lead">Этот чат — маленький пример того, что я делаю для клиентов. Выберите свой бизнес, и бот покажет, что можно автоматизировать.</p>
+        <p class="lead">Этот чат — маленький пример того, что я делаю для клиентов. Выберите свой бизнес, и бот покажет, что можно автоматизировать. Чат работает прямо в вашем браузере: без облака и без сервера, ничего никуда не отправляется.</p>
       </div>
       <div class="chat rv rv-d2" role="region" aria-label="Демо-чат">
         <div class="chat__top">
           <div class="chat__ava">АТ</div>
-          <div><div class="chat__name">Бот Адая</div><div class="chat__st" id="chatSt">в сети</div></div>
+          <div><div class="chat__name">Бот Адая</div><div class="chat__st" id="chatSt">локально · без облака</div></div>
         </div>
         <div class="chat__body" id="chatBody" aria-live="polite"></div>
       </div>
@@ -1074,7 +1074,7 @@ main,header,footer{position:relative;z-index:1}
     var t = document.createElement('div');
     t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
     body.appendChild(t); scrollChat();
-    setTimeout(function () { t.remove(); st.textContent = 'в сети'; cb(); }, reduce ? 0 : ms);
+    setTimeout(function () { t.remove(); st.textContent = 'локально · без облака'; cb(); }, reduce ? 0 : ms);
   }
   function options(list) {
     var o = document.createElement('div');
