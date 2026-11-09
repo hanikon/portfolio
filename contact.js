@@ -18,6 +18,7 @@
   var enc = encodeURIComponent(text);
 
   document.querySelectorAll('a[href]').forEach(function (a) {
+    if (a.hasAttribute('data-keep')) return;
     var href = a.getAttribute('href');
     if (href.indexOf('https://wa.me/') === 0) {
       a.href = href.split('?')[0] + '?text=' + enc;

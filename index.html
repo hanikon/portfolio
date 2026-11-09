@@ -501,6 +501,20 @@ main,header,footer{position:relative;z-index:1}
 .svc h3{font-size:clamp(22px,2.6vw,32px);font-weight:700;letter-spacing:-.025em;line-height:1.15}
 .svc p{color:var(--soft);font-size:16px}
 
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:50px}
+.case{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:16px;transition:border-color .25s,transform .25s}
+.case:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.case__tag{align-self:flex-start;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-2);padding:5px 11px;border-radius:999px;background:rgba(77,124,255,.12)}
+.case h3{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.case dl{display:grid;gap:12px;margin:0}
+.case dt{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.case dd{margin:3px 0 0;font-size:15.5px;color:rgba(238,242,250,.86)}
+.case dd.win{color:var(--green);font-weight:600}
+.case__cta{margin-top:auto;align-self:flex-start;padding:12px 20px;border-radius:999px;background:var(--wa);color:#04130a;font-weight:700;font-size:15px;transition:filter .2s}
+.case__cta:hover{filter:brightness(1.08)}
+.cases__note{color:var(--soft);font-size:15px;margin-top:22px}
+
 /* pledge */
 .pledge{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
 .pl{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:28px}
@@ -535,6 +549,8 @@ main,header,footer{position:relative;z-index:1}
   .feed--r{display:none}
 }
 @media (max-width:900px){
+  .cases{grid-template-columns:1fr}
+  .case{padding:24px}
   .nav__links{display:none}
   .clock{display:none}
   .board{grid-template-columns:repeat(2,1fr)}
@@ -583,6 +599,7 @@ main,header,footer{position:relative;z-index:1}
     <nav class="nav__links">
       <a href="#chat">Под ваш бизнес</a>
       <a href="#work">Работы</a>
+      <a href="#cases">Кейсы</a>
       <a href="#services">Услуги</a>
     </nav>
     <a class="glow glow--sm" href="#contact"><i class="live" aria-hidden="true"></i>Обсудить проект</a>
@@ -738,6 +755,60 @@ main,header,footer{position:relative;z-index:1}
           <div class="p__tags"><span>App Store</span><span>Google Play</span><span>3D-тур на iPhone</span></div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="sec" id="cases">
+    <div class="wrap">
+      <div class="rv">
+        <span class="eyebrow">Кейсы</span>
+        <h2 class="h2 wr">Задача → решение →<br><span class="grad">результат</span></h2>
+        <p class="lead">Реальные проекты, которые работают прямо сейчас. Узнали свою ситуацию — нажмите «Хочу так же», и я предложу решение под ваш бизнес.</p>
+      </div>
+      <div class="cases">
+        <article class="case rv">
+          <span class="case__tag">Компания 200+ человек</span>
+          <h3>Корпоративная платформа инженерной компании</h3>
+          <dl>
+            <div><dt>Задача</dt><dd>Данные по проектам, заявкам и стандартам жили в разных файлах и чатах. Руководству нужна была понятная картина.</dd></div>
+            <div><dt>Что сделал</dt><dd>Одна платформа: реестр проектов, заявки, стандарты, уведомления, вход через корпоративную почту. Из собранных данных — аналитика для руководства.</dd></div>
+            <div><dt>Результат</dt><dd class="win">200+ сотрудников работают в ней каждый день, уже 2 года. Отвечаю за платформу целиком.</dd></div>
+          </dl>
+          <a class="case__cta" data-keep target="_blank" rel="noopener" href="https://wa.me/77716023447?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%90%D0%B4%D0%B0%D0%B9%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%20%D0%BA%D0%B5%D0%B9%D1%81%20%C2%AB%D0%9A%D0%BE%D1%80%D0%BF%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0%20%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%BD%D0%BE%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8%C2%BB%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5.%0A%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8%3A%20%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%B2%20%D0%BE%D0%B4%D0%BD%D0%BE%D0%BC%20%D0%BC%D0%B5%D1%81%D1%82%D0%B5%20%D0%B8%20%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B0.%0A%D0%9A%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE%20%D0%BE%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B5%3A%20">Хочу так же →</a>
+        </article>
+        <article class="case rv">
+          <span class="case__tag">Розница и сервис</span>
+          <h3>Платформа лояльности и CRM</h3>
+          <dl>
+            <div><dt>Задача</dt><dd>Бизнесу нужно возвращать клиентов и общаться с ними там, где они сидят, — в WhatsApp и Telegram.</dd></div>
+            <div><dt>Что сделал</dt><dd>Веб-кабинет, мобильный клиент, WhatsApp через официальный Meta Cloud API, автоматизация Telegram.</dd></div>
+            <div><dt>Результат</dt><dd class="win">Платформой пользуются 1000+ бизнесов в Казахстане и СНГ.</dd></div>
+          </dl>
+          <a class="case__cta" data-keep target="_blank" rel="noopener" href="https://wa.me/77716023447?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%90%D0%B4%D0%B0%D0%B9%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%20%D0%BA%D0%B5%D0%B9%D1%81%20%C2%AB%D0%9F%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0%20%D0%BB%D0%BE%D1%8F%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20CRM%C2%BB%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5.%0A%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20CRM%20/%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%D0%BB%D0%BE%D1%8F%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D1%81%20WhatsApp%20%D0%B8%20Telegram.%0A%D0%9A%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE%20%D0%BE%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B5%3A%20">Хочу так же →</a>
+        </article>
+        <article class="case rv">
+          <span class="case__tag">Любой бизнес с заявками</span>
+          <h3>Чат-боты WhatsApp и Telegram</h3>
+          <dl>
+            <div><dt>Задача</dt><dd>Одни и те же вопросы с утра до ночи, заявки ночью теряются, клиент переспрашивает, куда платить.</dd></div>
+            <div><dt>Что сделал</dt><dd>Бот отвечает на типовые вопросы, принимает заявки 24/7, отправляет ссылку на оплату Kaspi, ведёт каналы.</dd></div>
+            <div><dt>Результат</dt><dd class="win">Мои боты обрабатывают 1500+ обращений в сутки — без менеджера на телефоне.</dd></div>
+          </dl>
+          <a class="case__cta" data-keep target="_blank" rel="noopener" href="https://wa.me/77716023447?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%90%D0%B4%D0%B0%D0%B9%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%20%D0%BA%D0%B5%D0%B9%D1%81%20%C2%AB%D0%A7%D0%B0%D1%82-%D0%B1%D0%BE%D1%82%D1%8B%20WhatsApp%20%D0%B8%20Telegram%C2%BB%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5.%0A%D0%9D%D1%83%D0%B6%D0%B5%D0%BD%20%D1%87%D0%B0%D1%82-%D0%B1%D0%BE%D1%82%20%D0%B4%D0%BB%D1%8F%20WhatsApp%20/%20Telegram.%0A%D0%9A%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE%20%D0%BE%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B5%3A%20">Хочу так же →</a>
+        </article>
+        <article class="case rv">
+          <span class="case__tag">Недвижимость и услуги</span>
+          <h3>3D-съёмка помещения на iPhone</h3>
+          <dl>
+            <div><dt>Задача</dt><dd>Риэлтор едет на каждый показ, химчистка или ремонт не видят объект до выезда.</dd></div>
+            <div><dt>Что сделал</dt><dd>Приложение: снимаете квартиру на iPhone — и по ней можно «пройтись» на экране.</dd></div>
+            <div><dt>Результат</dt><dd class="win">Объект показывают без выезда, а исполнитель заранее видит, что и как делать.</dd></div>
+          </dl>
+          <a class="case__cta" data-keep target="_blank" rel="noopener" href="https://wa.me/77716023447?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%90%D0%B4%D0%B0%D0%B9%21%20%D0%9F%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%20%D0%BA%D0%B5%D0%B9%D1%81%20%C2%AB3D-%D1%81%D1%8A%D1%91%D0%BC%D0%BA%D0%B0%20%D0%BF%D0%BE%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BD%D0%B0%20iPhone%C2%BB%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5.%0A%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%203D-%D1%81%D1%8A%D1%91%D0%BC%D0%BA%D0%BE%D0%B9%20%D0%BF%D0%BE%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BD%D0%B0%20iPhone.%0A%D0%9A%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%BE%20%D0%BE%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B5%3A%20">Хочу так же →</a>
+        </article>
+      </div>
+      <p class="cases__note rv">Подробности и демо покажу на созвоне.</p>
     </div>
   </section>
 
